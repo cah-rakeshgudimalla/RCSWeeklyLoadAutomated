@@ -1,0 +1,384 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/4/2021 2:49:53 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-2IFL401"
+  DTS:CreatorName="CARDINALHEALTH\jason.morello"
+  DTS:DTSID="{FF143878-3005-4278-A385-19D85B414983}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="StepFourIngesterSP"
+  DTS:PackageType="5"
+  DTS:VersionBuild="29"
+  DTS:VersionGUID="{FEDFB8CF-5018-4F96-ADB9-1306B2C24A28}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ChainCall]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{342C8970-B471-4908-A2DB-C76F334EAF1C}"
+      DTS:ObjectName="ChainCall">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::PackagePath] +  @[User::StepFivePackage]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="D:\Applications\Weekly Load Complete Package\Weekly Load Complete Package\Weekly Load Complete Package\StepFiveQueueReports.Dtsx" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[MainDb]"
+      DTS:CreationName="ADO.NET:SQL"
+      DTS:DTSID="{3B860381-BE30-4AAC-912D-573FEC444707}"
+      DTS:ObjectName="MainDb">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">"Data Source="+ @[User::DBServer] + ";Integrated Security=SSPI;Connect Timeout=30;"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=devcahrxdb;Integrated Security=SSPI;Connect Timeout=30;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="C:\SSIS\Process\Configs\StepFour.dtsConfig"
+      DTS:ConfigurationType="1"
+      DTS:CreationName=""
+      DTS:DTSID="{84002290-AA94-447C-9065-6E8843FB7C09}"
+      DTS:ObjectName="Configuration 2" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{BE504947-AF36-4EB2-A4CC-90B14F7D9163}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="DBServer">
+      <DTS:VariableValue
+        DTS:DataType="8">devcahrxdb</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7607E0B1-1DAC-43AF-B1CD-98238CDC4E25}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PackageErrorLabel">
+      <DTS:VariableValue
+        DTS:DataType="8">IngesterSP</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E627F85F-BA93-4435-AE75-8317E75792D6}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PackageMailSource">
+      <DTS:VariableValue
+        DTS:DataType="8">WeeklyLoad@cardinal.net</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D4CB6C16-35AE-41C2-8DC3-FE2FC419C0D7}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PackagePath">
+      <DTS:VariableValue
+        DTS:DataType="8">D:\Applications\Weekly Load Complete Package\Weekly Load Complete Package\Weekly Load Complete Package\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2055BF2C-7ADD-4641-A212-1B2DE5E36384}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="StepFivePackage">
+      <DTS:VariableValue
+        DTS:DataType="8">StepFiveQueueReports.Dtsx</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{BB7438B3-D436-4C27-B2B1-DE2236E23CD2}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SupportEmail">
+      <DTS:VariableValue
+        DTS:DataType="8">jason.morello@cardinalhealth.com</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Fire SP"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{9993C812-626F-47E5-8F54-BF8EA4AED282}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Fire SP"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:EventHandlers>
+        <DTS:EventHandler
+          DTS:refId="Package\Fire SP.EventHandlers[OnError]"
+          DTS:CreationName="OnError"
+          DTS:DTSID="{B68A16FB-BA8A-4796-BB3A-D0293C02EB41}"
+          DTS:EventID="0"
+          DTS:EventName="OnError"
+          DTS:LocaleID="-1">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:Description="The propagate property of the event"
+              DTS:DTSID="{9EB0657E-FB4E-4EA6-A6FB-DACE1CDB52C0}"
+              DTS:IncludeInDebugDump="6789"
+              DTS:Namespace="System"
+              DTS:ObjectName="Propagate">
+              <DTS:VariableValue
+                DTS:DataType="11">-1</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\Fire SP.EventHandlers[OnError]\Create Error Report Email"
+              DTS:CreationName="Microsoft.DbMaintenanceTSQLExecuteTask"
+              DTS:Description="Execute T-SQL Statement Task"
+              DTS:DTSID="{4ebd76c1-0894-4d06-a7a9-8e68c4cc0784}"
+              DTS:ExecutableType="Microsoft.DbMaintenanceTSQLExecuteTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Create Error Report Email"
+              DTS:TaskContact="Execute T-SQL Statement Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:PropertyExpression
+                DTS:Name="SqlStatementSource">"INSERT [msimisc].[dbo].[email_SQL] \n" +
+                "(ems_vFrom, ems_vTo, ems_vCC, ems_vBCC, ems_vSubject, ems_vEmailBody, ems_vattachments, ems_istatus, ems_dCreateDate) \n" +
+                "VALUES \n" +
+                "('" + @[User::PackageMailSource] + "', '" + @[User::SupportEmail] + "', "
+ + "'', '', '" + @[User::PackageErrorLabel] + "', '" + @[System::ErrorDescription] + "\n Source:" + 
+ @[System::SourceName] + "','', NOW())"</DTS:PropertyExpression>
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{3B860381-BE30-4AAC-912D-573FEC444707}"
+                  SQLTask:SqlStatementSource="INSERT [msimisc].[dbo].[email_SQL] &#xA;(ems_vFrom, ems_vTo, ems_vCC, ems_vBCC, ems_vSubject, ems_vEmailBody, ems_vattachments, ems_istatus, ems_dCreateDate) &#xA;VALUES &#xA;('WeeklyLoad@cardinal.net', 'jason.morello@cardinalhealth.com', '', '', 'IngesterSP', '&#xA; Source:','', NOW())"
+                  SQLTask:ServerVersion="9"
+                  SQLTask:ExtendedLogging="True"
+                  SQLTask:LocalConnectionForLogging=""
+                  SQLTask:TaskName=""
+                  SQLTask:IgnoreDatabasesInNotOnlineState="False" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+        </DTS:EventHandler>
+      </DTS:EventHandlers>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{3B860381-BE30-4AAC-912D-573FEC444707}"
+          SQLTask:IsStoredProc="True"
+          SQLTask:SqlStatementSource="StoreReporting..rcsfs_FinancialSummaryData_Load" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Log Entry"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{C40E20FA-1386-49F3-9DC6-50FAA81C9E04}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Log Entry"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="SqlStatementSource">"INSERT INTO StoreReporting..rcsr_log (rcsr_iApplicationID, rcsp_vMethod, rcsp_vMessage, rcsr_dMod)
+
+VALUES(11,'StepFourIngesterSP.dtsx', 'FIring Stored Procedure', GETDATE())"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{3B860381-BE30-4AAC-912D-573FEC444707}"
+          SQLTask:SqlStatementSource="INSERT INTO StoreReporting..rcsr_log (rcsr_iApplicationID, rcsp_vMethod, rcsp_vMessage, rcsr_dMod)&#xA;&#xA;VALUES(11,'StepFourIngesterSP.dtsx', 'FIring Stored Procedure', GETDATE())" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\ReportQueue"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Execute Package Task"
+      DTS:DTSID="{D95298B9-2C5D-452C-A19C-76F487025663}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="ReportQueue"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <Connection>{342C8970-B471-4908-A2DB-C76F334EAF1C}</Connection>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{589FEE39-72C7-478E-978E-538C0CE39C7D}"
+      DTS:From="Package\Fire SP"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\ReportQueue" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{B149E7EA-DDE4-4675-85C4-627963E9BEDF}"
+      DTS:From="Package\Log Entry"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Fire SP" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{26F3C8E4-11A0-4F79-888D-ECD79ABEFDCF}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{9D6CE397-79E8-45A5-AB85-24CB4BE95E9F}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\Create Error Report Email"
+          DTS:CreationName="Microsoft.DbMaintenanceTSQLExecuteTask"
+          DTS:Description="Execute T-SQL Statement Task"
+          DTS:DTSID="{92b6e127-80c7-4ce1-92e3-2e1905e1ac4a}"
+          DTS:ExecutableType="Microsoft.DbMaintenanceTSQLExecuteTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Create Error Report Email"
+          DTS:TaskContact="Execute T-SQL Statement Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">"INSERT INTO [msimisc].[dbo].[email_SQL] \n" +
+                "(ems_vFrom, ems_vTo, ems_vCC, ems_vBCC, ems_vSubject, ems_vEmailBody, ems_vattachments, ems_istatus, ems_dCreateDate) \n" +
+                "VALUES \n" +
+                "('" + @[User::PackageMailSource] + "', '" + @[User::SupportEmail] + "', "
+ + "'', '', '" + @[User::PackageErrorLabel] + "', '" + @[System::ErrorDescription] + "\n Source:" + 
+ @[System::SourceName] + "','',2, GETDATE())"</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{3B860381-BE30-4AAC-912D-573FEC444707}"
+              SQLTask:SqlStatementSource="INSERT INTO [msimisc].[dbo].[email_SQL] &#xA;(ems_vFrom, ems_vTo, ems_vCC, ems_vBCC, ems_vSubject, ems_vEmailBody, ems_vattachments, ems_istatus, ems_dCreateDate) &#xA;VALUES &#xA;('WeeklyLoad@cardinal.net', 'jason.morello@cardinalhealth.com', '', '', 'IngesterSP', '&#xA; Source:','',2, GETDATE())"
+              SQLTask:ServerVersion="9"
+              SQLTask:ExtendedLogging="True"
+              SQLTask:LocalConnectionForLogging=""
+              SQLTask:TaskName=""
+              SQLTask:IgnoreDatabasesInNotOnlineState="False" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="112,42"
+          Id="Package\Fire SP"
+          TopLeft="126,77" />
+        <NodeLayout
+          Size="124,42"
+          Id="Package\Log Entry"
+          TopLeft="113,1" />
+        <NodeLayout
+          Size="141,42"
+          Id="Package\ReportQueue"
+          TopLeft="115.999999591282,176.611764714462" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="184.199999795641,118.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58.0117647144621"
+              Start="0,0"
+              End="0,50.5117647144621">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5117647144621" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="178.5,43">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34"
+              Start="0,0"
+              End="0,26.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="200,42"
+          Id="Package.EventHandlers[OnError]\Create Error Report Email"
+          TopLeft="5.5,5.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <DtsEventHandler
+    design-time-name="Package\Fire SP.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="NaN,NaN"
+          Id="Package\Fire SP.EventHandlers[OnError]\Create Error Report Email"
+          TopLeft="NaN,NaN" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
